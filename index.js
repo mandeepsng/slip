@@ -3,13 +3,21 @@ const path = require('path');
 const csv = require('csv-parser');
 const fs = require('fs');
 const PDFDoc = require('pdfkit');
-const handlebars = require('handlebars');
+const handlebars = require('hbs');
 const bodyParser = require('body-parser')
 const { convert, compile } = require('html-to-text');
 const PDFDocument = require("pdfkit-table");
+const multer = require('multer');
 
 const app = express();
-const port = 3000;
+const port = 3001;
+
+
+// Set up the multer middleware to handle file uploads
+// const upload = multer({ dest: 'uploads/' });
+
+// const upload = multer({ dest: 'uploads/', fieldname: 'csvfile' });
+
 
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -17,6 +25,28 @@ app.use(bodyParser.json());
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+    if (!file.originalname.match(/\.(csv)$/)) {
+      return cb(new Error('Only CSV files are allowed!'));
+    }
+    cb(null, true);
+  }
+});
+
 
 app.get('/read', (req, res) => {
   const results = [];
@@ -214,7 +244,33 @@ app.get('/demo', (req, res) => {
   res.end(`pdf file created with name ${randomString}`)
 } )
 
+app.get('/d', (req, res) => {
+  res.render('index', { title: 'Home Page', message: 'Welcome to my website!' });
+});
 
+
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+  app.post('/all', upload.single('file'), (req, res) => {
+
+
+  console.log(req.file);
+  // Get the path of the uploaded file
+  const filePath = req.file.csvfile;
+
+  const results = [];
+  fs.createReadStream(filePath)
+  .pipe(csv())
+  .on('data', (data) => {
+    results.push(data);
+  })
+  .on('end', ()=> {
+    res.send(results);
+  } )
+
+});
 
 
 
