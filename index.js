@@ -10,7 +10,9 @@ const PDFDocument = require("pdfkit-table");
 const multer = require('multer');
 
 const app = express();
-const port = 3001;
+const upload = multer({ dest: 'uploads/' });
+
+const port = 3000;
 
 
 // Set up the multer middleware to handle file uploads
@@ -37,15 +39,39 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, cb) {
-    if (!file.originalname.match(/\.(csv)$/)) {
-      return cb(new Error('Only CSV files are allowed!'));
-    }
-    cb(null, true);
-  }
+// const upload = multer({
+//   storage: storage,
+//   fileFilter: function (req, file, cb) {
+//     if (!file.originalname.match(/\.(csv)$/)) {
+//       return cb(new Error('Only CSV files are allowed!'));
+//     }
+//     cb(null, true);
+//   }
+// });
+
+// app.get('/', (req, res) => {
+//   res.send(`
+//     <form method="post" action="/" enctype="multipart/form-data">
+//       <input type="file" name="csv" accept=".csv">
+//       <br>
+//       <button type="submit">Upload</button>
+//     </form>
+//   `);
+// });
+
+app.post('/', upload.single('csv'), (req, res) => {
+  const results = [];
+  fs.createReadStream(req.file.path)
+    .pipe(csv({ headers: true }))
+    .on('data', (data) => results.push(data))
+    .on('end', () => {
+      fs.unlinkSync(req.file.path); // delete the file after reading it
+      // res.send(results);
+      res.render('index', { results: results});
+
+    });
 });
+
 
 
 app.get('/read', (req, res) => {
@@ -252,6 +278,119 @@ app.get('/d', (req, res) => {
 app.get('/', (req, res) => {
   res.render('index');
 });
+
+
+
+app.post('/url', function(req, res) {
+  // Extract data from request body
+  const url = req.body.url;
+  const id = req.body.id;
+  
+  // Do something with the data
+  console.log('url: ' + url);
+  console.log('id: ' + id);
+  
+  
+  var md = fetchUrl(url)
+  .then( (response)=>{
+    console.log('ddddd '+ response);
+    res.send({id: id, title: response.title});
+
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+  
+
+});
+
+
+async function fetchUrl(url){
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const folderName = `${year}-${month}-${day}`;
+  
+  
+  if (!fs.existsSync(folderName)) {
+    fs.mkdirSync(folderName);
+    console.log(`Created folder: ${folderName}`);
+  } else {
+    console.log(`Folder ${folderName} already exists.`);
+  }
+
+  const respon = await axios.get(url)
+  const $ = cheerio.load(respon.data);
+  // Use Cheerio to extract data from the HTML
+  var title = $('h1.entry-title').text();
+
+  title.replace(/[^a-zA-Z0-9]/g, '');
+
+  const slug = slugify(title, {
+    lower:true,
+    strict:true
+  });
+
+
+  const body = $('.single-body').text();
+        
+  const quote = $('.quote').text();
+  
+  const imgUrl = 'https://codelist.cc'+$('.single-body img').attr('src');
+  
+  let body_data = body.replace(quote, "");
+  let description = body_data.replace(/&/g, '');
+        
+  description = description.replace(/'/g, ''); 
+  description = description.replace(/&/g, 'and');  
+
+  // description.replace('&amp;','')
+  // title.replace('&amp;','')
+  
+  const urls = quote.split('https');
+  
+  // Remove the empty string at the beginning of the array
+  urls.shift();
+  
+  // Add the "https" prefix back to each URL
+  for (let i = 0; i < urls.length; i++) {
+    urls[i] = 'https' + urls[i];
+  }
+  
+  const currentDate = new Date();
+  const formattedDate = currentDate.toISOString();
+  const fileName = `${slug}.md`; // replace with your file name
+
+    // Render the view with the constants data
+    const template = Handlebars.compile(fs.readFileSync('views/samplemd.hbs', 'utf8'));
+
+    const markdown = template({
+      title: title,
+      formattedDate: formattedDate,
+      slug: slug,
+      imgUrl: imgUrl,
+      description: description,
+      urls: urls,
+  });
+  
+    // Write the Markdown file
+    fs.writeFileSync(`${folderName}/${fileName}`, markdown);
+    const readfile = `${folderName}/${fileName}`;
+  
+    const getmdfile_content = fs.readFileSync(readfile, 'utf-8');
+
+    var data = {
+       readfile: readfile,
+       title: title,
+    }
+        
+    return data;
+    
+
+}
+
 
   app.post('/all', upload.single('file'), (req, res) => {
 

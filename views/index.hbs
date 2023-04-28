@@ -43,10 +43,10 @@
         <div class="jumbotron mb-1">
           <div class="row">
             <div class="col-sm-12 col-md-12">
-                <form method="post" action="/all"  enctype="multipart/form-data">
+                <form method="post" action="/"  enctype="multipart/form-data">
                 <div class="form-group">
-                        <label for="csvfile">upload csv</label>
-                        <input type="file" id="csvfile" name="csvfile" class="form-control">
+                        <label for="csv">upload csv</label>
+                        <input type="file" id="csv" name="csv" class="form-control" accept=".csv" >
                 </div>
                 
                 <button type="submit" class="btn btn-primary float-right">Send</button>
@@ -62,10 +62,35 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-12 col-md-12 text-left">
-              {{#each arr}}
-                <h6 class="links" id="{{@index}}">{{this}}</h6>
+              {{#each results}}
+                {{#each this}}
+                {{!-- <h6 class="links" id="{{@index}}">{{this}}</h6> --}}
+                {{/each}}
               {{/each}}
 
+
+              {{#if results}}
+                  <h2>CSV Data</h2>
+                  <table>
+                    <thead>
+                      {{!-- <tr>
+                        {{#each results.[0]}}
+                          <th>{{this}}</th>
+                        {{/each}}
+                      </tr> --}}
+                    </thead>
+                    <tbody>
+                      {{#each results}}
+                        <tr>
+                          {{#each this}}
+                            <td class="links" id="{{@index}}" >{{this}}</td>
+                             {{!-- <h6 class="links" id="{{@index}}">{{this}}</h6> --}}
+                          {{/each}}
+                        </tr>
+                      {{/each}}
+                    </tbody>
+                  </table>
+                {{/if}}
 
             {{!-- {{filenames}} --}}
             </div>
@@ -122,10 +147,12 @@
 
             var counter = 0;
 
+
             var intervalId = setInterval(function() {
 
             if (counter > arrayCount) {
             clearInterval(intervalId);
+            console.log('counter = ' , counter)
             return;
             }
 
@@ -151,7 +178,7 @@
 
 
           counter++;
-          }, 5000);
+          }, 3000);
 
     });
   </script>
