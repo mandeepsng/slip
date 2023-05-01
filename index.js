@@ -87,6 +87,33 @@ app.post('/', upload.single('csv'), (req, res) => {
 });
 
 
+async function createPdf(data) { 
+  console.log(data)
+}
+
+app.post('/url', function(req, res) {
+  // Extract data from request body
+  const url = req.body.url;
+  const id = req.body.id;
+  
+  // Do something with the data
+  console.log('url: ' + url);
+  console.log('id: ' + id);
+  
+  
+  // var md = fetchUrl(url)
+  // .then( (response)=>{
+  //   console.log('ddddd '+ response);
+  //   res.send({id: id, title: response.title});
+
+  // })
+  // .catch((err) => {
+  //   console.log(err);
+  // });
+  
+
+});
+
 
 app.get('/read', (req, res) => {
   const results = [];
@@ -295,28 +322,7 @@ app.get('/', (req, res) => {
 
 
 
-app.post('/url', function(req, res) {
-  // Extract data from request body
-  const url = req.body.url;
-  const id = req.body.id;
-  
-  // Do something with the data
-  console.log('url: ' + url);
-  console.log('id: ' + id);
-  
-  
-  // var md = fetchUrl(url)
-  // .then( (response)=>{
-  //   console.log('ddddd '+ response);
-  //   res.send({id: id, title: response.title});
 
-  // })
-  // .catch((err) => {
-  //   console.log(err);
-  // });
-  
-
-});
 
 
 app.get('/slip', (req, res) => {
