@@ -291,105 +291,26 @@ app.post('/url', function(req, res) {
   console.log('id: ' + id);
   
   
-  var md = fetchUrl(url)
-  .then( (response)=>{
-    console.log('ddddd '+ response);
-    res.send({id: id, title: response.title});
+  // var md = fetchUrl(url)
+  // .then( (response)=>{
+  //   console.log('ddddd '+ response);
+  //   res.send({id: id, title: response.title});
 
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  // })
+  // .catch((err) => {
+  //   console.log(err);
+  // });
   
 
 });
 
 
-async function fetchUrl(url){
-
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  const folderName = `${year}-${month}-${day}`;
-  
-  
-  if (!fs.existsSync(folderName)) {
-    fs.mkdirSync(folderName);
-    console.log(`Created folder: ${folderName}`);
-  } else {
-    console.log(`Folder ${folderName} already exists.`);
-  }
-
-  const respon = await axios.get(url)
-  const $ = cheerio.load(respon.data);
-  // Use Cheerio to extract data from the HTML
-  var title = $('h1.entry-title').text();
-
-  title.replace(/[^a-zA-Z0-9]/g, '');
-
-  const slug = slugify(title, {
-    lower:true,
-    strict:true
-  });
-
-
-  const body = $('.single-body').text();
-        
-  const quote = $('.quote').text();
-  
-  const imgUrl = 'https://codelist.cc'+$('.single-body img').attr('src');
-  
-  let body_data = body.replace(quote, "");
-  let description = body_data.replace(/&/g, '');
-        
-  description = description.replace(/'/g, ''); 
-  description = description.replace(/&/g, 'and');  
-
-  // description.replace('&amp;','')
-  // title.replace('&amp;','')
-  
-  const urls = quote.split('https');
-  
-  // Remove the empty string at the beginning of the array
-  urls.shift();
-  
-  // Add the "https" prefix back to each URL
-  for (let i = 0; i < urls.length; i++) {
-    urls[i] = 'https' + urls[i];
-  }
-  
-  const currentDate = new Date();
-  const formattedDate = currentDate.toISOString();
-  const fileName = `${slug}.md`; // replace with your file name
-
-    // Render the view with the constants data
-    const template = Handlebars.compile(fs.readFileSync('views/samplemd.hbs', 'utf8'));
-
-    const markdown = template({
-      title: title,
-      formattedDate: formattedDate,
-      slug: slug,
-      imgUrl: imgUrl,
-      description: description,
-      urls: urls,
-  });
-  
-    // Write the Markdown file
-    fs.writeFileSync(`${folderName}/${fileName}`, markdown);
-    const readfile = `${folderName}/${fileName}`;
-  
-    const getmdfile_content = fs.readFileSync(readfile, 'utf-8');
-
-    var data = {
-       readfile: readfile,
-       title: title,
-    }
-        
-    return data;
-    
-
-}
+app.get('/slip', (req, res) => {
+  res.render('slip');
+} )
+app.get('/slip2', (req, res) => {
+  res.render('slip2');
+} )
 
 
   app.post('/all', upload.single('file'), (req, res) => {
