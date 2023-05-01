@@ -8,6 +8,11 @@ const bodyParser = require('body-parser')
 const { convert, compile } = require('html-to-text');
 const PDFDocument = require("pdfkit-table");
 const multer = require('multer');
+const Handlebars = require('handlebars');
+
+Handlebars.registerHelper('json', function(context) {
+    return JSON.stringify(context);
+});
 
 const app = express();
 const upload = multer({ dest: 'uploads/' });
@@ -63,11 +68,20 @@ app.post('/', upload.single('csv'), (req, res) => {
   const results = [];
   fs.createReadStream(req.file.path)
     .pipe(csv({ headers: true }))
+    // .pipe(csv())
     .on('data', (data) => results.push(data))
     .on('end', () => {
       fs.unlinkSync(req.file.path); // delete the file after reading it
-      // res.send(results);
-      res.render('index', { results: results});
+      results.forEach((row, index) => {
+        if(index > 0){
+          console.log(row._0);
+
+        }
+      });
+
+      const resultsJSON = JSON.stringify(results);
+
+      res.render('index', { results: resultsJSON});
 
     });
 });

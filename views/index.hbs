@@ -61,6 +61,9 @@
     <section class="mb-4 mt-3">
         <div class="container">
           <div class="row">
+
+            <input type="hidden" id="results-data" value="{{results}}">
+
             <div class="col-sm-12 col-md-12 text-left">
               {{#each results}}
                 {{#each this}}
@@ -73,18 +76,18 @@
                   <h2>CSV Data</h2>
                   <table>
                     <thead>
-                      {{!-- <tr>
-                        {{#each results.[0]}}
+                      <tr>
+                        {{!-- {{#each results.[0]}}
                           <th>{{this}}</th>
-                        {{/each}}
-                      </tr> --}}
+                        {{/each}} --}}
+                      </tr>
                     </thead>
                     <tbody>
-                      {{#each results}}
-                        <tr>
-                          {{#each this}}
-                            <td class="links" id="{{@index}}" >{{this}}</td>
-                             {{!-- <h6 class="links" id="{{@index}}">{{this}}</h6> --}}
+                      {{#each results as |row|}}
+                        <tr class="data" data="{{row._0}}">
+                          {{#each row as |value key|}}
+                            <td class="links_{{{@index}}}" id="{{@key}}" >{{value}}</td>
+                             {{!-- <h6 class="links_{{@index}}">{{}}</h6> --}}
                           {{/each}}
                         </tr>
                       {{/each}}
@@ -134,13 +137,23 @@
  <script>
     $(document).ready(function() {
 
-    
+    const data = JSON.parse($('#results-data').val());
+
+    $.each(data, function(index, value){
+      console.log(index, value);
+    });
+
+
+
+   console.log('data =', data[0])
+
     const linksdata = [];  
-    var links = $('.links');
+    var links = $('.data');
 
     $.each(links, function(index, value){
     var url = $(this).text();
       linksdata.push(url);
+      //console.log( index ,url)
     });
 
     var arrayCount = linksdata.length;
@@ -164,17 +177,17 @@
 
           console.log(counter)
 
-            $.ajax({
-            url: '/url',
-            type: 'POST',
-            data: formData,
-            success: function(data) {
+           //$.ajax({
+           // url: '/url',
+            //type: 'POST',
+           // data: formData,
+           // success: function(data) {
             // Append the name value pairs to the data div
             
-              $('#'+data.id).html(data.title+ ' (Done)' ).css({'color':'blue', 'font-size' : '20px'} );
+            //  $('#'+data.id).html(data.title+ ' (Done)' ).css({'color':'blue', 'font-size' : '20px'} );
 
-            }
-            });
+           // }
+           // });
 
 
           counter++;

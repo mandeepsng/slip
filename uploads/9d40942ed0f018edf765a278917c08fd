@@ -1,0 +1,5 @@
+Employee Name,Designation,Branch,Month,Basic Salary,PAN,Working Days,Pay Days,Payment Mode,Bank A/C No.,UAN,Basic Salary,House Rent Allowance,City Allowance,Mobile and Internet Allowance,Leave Travel Allowance,Special Allowance,Others,Tenure Bonus,Statutory Bonus,Tax Deduction at Source,Employee Provident Fund,Employee State Insurance,Professional Tax,Other Deductions,Total Earnings,Total Deductions,Net Pay
+Testing,software,branch,jan,3200,DSFHSdkf93249023,22,22,banktransfer,849534593459,73749234923894,Rs.899856,34000,23400,546777,3245,3400,12,989760,0,6009,1700,0,0,0,29876,345677,466709
+Testing 2,software,branch,feb,3200,DSFHSdkf93249024,22,22,banktransfer,849534593459,73749234923894,Rs.899857,34000,23400,546777,3245,3400,12,989760,0,6009,1700,0,0,0,29876,345677,466709
+Testing 3,software,branch,mar,3200,DSFHSdkf93249025,22,22,banktransfer,849534593459,73749234923894,Rs.899858,34000,23400,546777,3245,3400,12,989760,0,6009,1700,0,0,0,29876,345677,466709
+Testing 4,software,branch,apr,3200,DSFHSdkf93249026,22,22,banktransfer,849534593459,73749234923894,Rs.899859,34000,23400,546777,3245,3400,12,989760,0,6009,1700,0,0,0,29876,345677,466709
