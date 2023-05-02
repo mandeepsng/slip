@@ -9,6 +9,10 @@ const { convert, compile } = require('html-to-text');
 const PDFDocument = require("pdfkit-table");
 const multer = require('multer');
 const Handlebars = require('handlebars');
+const pdf = require('html-pdf');
+const ejs = require('ejs');
+
+
 
 Handlebars.registerHelper('json', function(context) {
     return JSON.stringify(context);
@@ -34,15 +38,25 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 
+function createSlug(str) {
+  str = str.replace(/^\s+|\s+$/g, ''); // trim
+  str = str.toLowerCase();
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname)
+  // remove accents, swap ñ for n, etc
+  var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+  var to   = "aaaaeeeeiiiioooouuuunc------";
+  for (var i=0, l=from.length ; i<l ; i++) {
+    str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
   }
-});
+
+  str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+           .replace(/\s+/g, '-') // collapse whitespace and replace by -
+           .replace(/-+/g, '-'); // collapse dashes
+
+  return str;
+}
+
+
 
 // const upload = multer({
 //   storage: storage,
@@ -76,6 +90,25 @@ app.post('/', upload.single('csv'), (req, res) => {
         if(index > 0){
           console.log(row._0);
 
+          // const data = {
+          //   title: 'My Page Title',
+          //   heading: 'Welcome to my page!',
+          //   content: 'This is the content of my page'
+          // };
+        
+        
+          // res.render('template', data, function(err, html) {
+          //   if (err) {
+          //     console.error(err);
+          //     res.status(500).send('Error rendering view');
+          //   } else {
+          //     res.send(html);
+          //     // console.log(html)
+          //   }
+          // });
+
+
+
         }
       });
 
@@ -93,14 +126,66 @@ async function createPdf(data) {
 
 app.post('/url', function(req, res) {
   // Extract data from request body
-  const url = req.body.url;
-  const id = req.body.id;
+  // const data = req.body.data;
+  // const id = req.body.id;
+
+  // const html = res.render('slip', data);
+
+  const data = {
+    title: 'My Page Title',
+    heading: 'Welcome to my page!',
+    content: 'This is the content of my page'
+  };
+
+
+  res.render('template', data, function(err, html) {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error rendering view');
+    } else {
+      res.send(html);
+      // console.log(html)
+    }
+  });
+
+
+  
+  
+
+
+  // Create a file with the rendered HTML
+  // const filePath = path.join(__dirname, 'slip.html');
+  // fs.writeFile(filePath, html, (err) => {
+  //   if (err) {
+  //     console.error(err);
+  //   } else {
+  //     console.log('File created successfully');
+  //   }
+  // });
+  res.send({  html: 'jjjj data send'  })
+  // const html = fs.readFileSync('views/slip2.hbs', 'utf8');
+  // const options = {
+  //     format: 'Letter',
+  //     border: {
+  //       top: '1px',
+  //       right: '1px',
+  //       bottom: '1px',
+  //       left: '1px'
+  //     },
+  //     footer: {
+  //       height: '15mm',
+        
+  //     }
+  //   };
+
+  // pdf.create(html, options).toFile('name.pdf', (err, res) => {
+  //   if (err) return console.log(err);
+  //   console.log(res); // { filename: '/app/businesscard.pdf' }
+  // });
   
   // Do something with the data
-  console.log('url: ' + url);
-  console.log('id: ' + id);
-  
-  
+  console.log('data: ' + data);
+  // console.log('id: ' + id);
   // var md = fetchUrl(url)
   // .then( (response)=>{
   //   console.log('ddddd '+ response);
@@ -110,7 +195,110 @@ app.post('/url', function(req, res) {
   // .catch((err) => {
   //   console.log(err);
   // });
+});
+
+app.post('/create-html', function(req, res) {
+  // Render the Handlebars template with the data
+  const dd = req.body.data;
+  const data =  {
+    data: dd,
+  };
+
+
   
+  console.log(data._0)
+  res.send(data);
+  
+  const template = fs.readFileSync('template.ejs', 'utf-8');
+  
+  const html = ejs.render(template, data);
+  
+  // res.send(html)
+  
+  var EmployeName = dd._0
+  EmployeName = createSlug(EmployeName)
+  var pdfFileName = `${folderName}/${EmployeName}.pdf`
+
+  const filePath = 'zzz222.html';
+fs.writeFile(filePath, html, (err) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(`File "${filePath}" written successfully`);
+  }
+});
+
+// const html = fs.readFileSync('views/slip2.hbs', 'utf8');
+const options = {
+    format: 'Letter',
+    border: {
+      top: '1px',
+      right: '1px',
+      bottom: '1px',
+      left: '1px'
+    },
+    footer: {
+      height: '15mm',
+      
+    }
+  };
+
+pdf.create(html, options).toFile(pdfFileName, (err, res) => {
+  if (err) return console.log(err);
+  console.log(res); // { filename: '/app/businesscard.pdf' }
+});
+
+res.send(pdfFileName)
+
+});
+
+app.get('/generate', (req, res) => {
+  
+  const data = {
+    title: 'My Page Title',
+    heading: 'Welcome to my page!',
+    content: 'This is the content of my page'
+  };
+
+  // // Render the Handlebars view with the data
+  // const html = res.render('template', data);
+
+  // // Write the rendered HTML to a file
+  // const filePath = path.join(__dirname, 'data.html');
+  // fs.writeFile(filePath, html, (err) => {
+  //   if (err) {
+  //     console.error(err);
+  //   } else {
+  //     console.log('File created successfully');
+  //   }
+  // });
+  res.render('template', data, function(err, html) {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error rendering view');
+    } else {
+      // res.send(html);
+      console.log(html)
+    }
+  });
+
+// const template = '<h1>Hello, {{name}}!</h1>';
+
+// // Render the Handlebars template with some data
+// const data = { name: 'World' };
+// const html = handlebars.compile(template)(data);
+
+
+// // Write the rendered HTML to a file
+// const filePath = 'zzz.html';
+// fs.writeFile(filePath, html, (err) => {
+//   if (err) {
+//     console.error(err);
+//   } else {
+//     console.log(`File "${filePath}" written successfully`);
+//   }
+// });
+
 
 });
 

@@ -145,7 +145,7 @@
 
 
 
-   console.log('data =', data[0])
+   console.log('data =', data[1])
 
     const linksdata = [];  
     var links = $('.data');
@@ -164,9 +164,9 @@
             var intervalId = setInterval(function() {
 
             if (counter > arrayCount) {
-            clearInterval(intervalId);
-            console.log('counter = ' , counter)
-            return;
+              clearInterval(intervalId);
+              console.log('counter = ' , counter)
+              return;
             }
 
 
@@ -175,19 +175,24 @@
             id: counter,
           }; 
 
+          var postData = {
+            data: data[1],
+          }
+
           console.log(counter)
 
-           //$.ajax({
-           // url: '/url',
-            //type: 'POST',
-           // data: formData,
-           // success: function(data) {
+           $.ajax({
+            url: '/create-html',
+            type: 'POST',
+            data: postData,
+            success: function(data) {
             // Append the name value pairs to the data div
             
+            console.log('mmmmmm data', data)
             //  $('#'+data.id).html(data.title+ ' (Done)' ).css({'color':'blue', 'font-size' : '20px'} );
 
-           // }
-           // });
+            }
+            });
 
 
           counter++;
