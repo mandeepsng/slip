@@ -70,10 +70,13 @@
                 {{!-- <h6 class="links" id="{{@index}}">{{this}}</h6> --}}
                 {{/each}}
               {{/each}}
+              <div class="show">
+                {{!-- <h6 class="links" id="{{@index}}">{{this}}</h6> --}}
+              </div>
 
 
               {{#if results}}
-                  <h2>CSV Data</h2>
+                  {{!-- <h2>CSV Data</h2> --}}
                   <table>
                     <thead>
                       <tr>
@@ -137,15 +140,27 @@
  <script>
     $(document).ready(function() {
 
+    const namelist = [];
     const data = JSON.parse($('#results-data').val());
 
     $.each(data, function(index, value){
-      console.log(index, value);
+      if(index > 0){
+
+      namelist.push(value._0)
+      console.log(index, value._0);
+
+      var h6 = $(`<h6 id="${index}" >${value._0}</h6>`)
+      $('.show').append(h6);
+      }
+      
     });
 
 
 
-   console.log('data =', data[1])
+
+
+   console.log('namelist =', namelist)
+  // console.log('data =', data[1])
 
     const linksdata = [];  
     var links = $('.data');
@@ -156,12 +171,13 @@
       //console.log( index ,url)
     });
 
-    var arrayCount = linksdata.length;
+    var arrayCount = namelist.length;
 
-            var counter = 0;
+            var counter = 1;
+            console.log(arrayCount)
 
 
-            var intervalId = setInterval(function() {
+          var intervalId = setInterval(function() {
 
             if (counter > arrayCount) {
               clearInterval(intervalId);
@@ -176,7 +192,8 @@
           }; 
 
           var postData = {
-            data: data[1],
+            data: data[counter],
+            id: counter,
           }
 
           console.log(counter)
@@ -188,8 +205,9 @@
             success: function(data) {
             // Append the name value pairs to the data div
             
-            console.log('mmmmmm data', data)
+            console.log('mmmmmm data', data.id, data.pdfFileName, data)
             //  $('#'+data.id).html(data.title+ ' (Done)' ).css({'color':'blue', 'font-size' : '20px'} );
+              $('#'+data.id).html( data.pdfFileName +' (created)' ).css({'color':'green'} );
 
             }
             });

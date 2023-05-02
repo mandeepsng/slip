@@ -200,6 +200,7 @@ app.post('/url', function(req, res) {
 app.post('/create-html', function(req, res) {
   // Render the Handlebars template with the data
   const dd = req.body.data;
+  const id = req.body.id;
   const data =  {
     data: dd,
   };
@@ -207,7 +208,7 @@ app.post('/create-html', function(req, res) {
 
   
   console.log(data._0)
-  res.send(data);
+  // res.send(data);
   
   const template = fs.readFileSync('template.ejs', 'utf-8');
   
@@ -219,7 +220,7 @@ app.post('/create-html', function(req, res) {
   EmployeName = createSlug(EmployeName)
   var pdfFileName = `${folderName}/${EmployeName}.pdf`
 
-  const filePath = 'zzz222.html';
+  const filePath = 'render.html';
 fs.writeFile(filePath, html, (err) => {
   if (err) {
     console.error(err);
@@ -248,7 +249,10 @@ pdf.create(html, options).toFile(pdfFileName, (err, res) => {
   console.log(res); // { filename: '/app/businesscard.pdf' }
 });
 
-res.send(pdfFileName)
+res.send({
+  'pdfFileName' : pdfFileName,
+  'id' : id,
+})
 
 });
 
