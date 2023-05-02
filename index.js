@@ -512,6 +512,10 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.get('/output', (req, res) => {
+  res.render('sample');
+});
+
 
 
 

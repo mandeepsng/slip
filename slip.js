@@ -1,7 +1,7 @@
 const pdf = require('html-pdf');
 const fs = require('fs');
 
-const html = fs.readFileSync('views/slip2.hbs', 'utf8');
+const html = fs.readFileSync('output.html', 'utf8');
 const options = {
     format: 'Letter',
     border: {
