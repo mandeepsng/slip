@@ -2,21 +2,14 @@ const express = require('express');
 const path = require('path');
 const csv = require('csv-parser');
 const fs = require('fs');
-const PDFDoc = require('pdfkit');
 const handlebars = require('hbs');
 const bodyParser = require('body-parser')
-const { convert, compile } = require('html-to-text');
 const PDFDocument = require("pdfkit-table");
 const multer = require('multer');
 const Handlebars = require('handlebars');
 const pdf = require('html-pdf');
 const ejs = require('ejs');
 
-
-
-Handlebars.registerHelper('json', function(context) {
-    return JSON.stringify(context);
-});
 
 const app = express();
 const upload = multer({ dest: 'uploads/' });

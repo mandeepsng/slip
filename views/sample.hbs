@@ -89,6 +89,14 @@
          font-size: 20px;
          font-weight: bold;
          }
+
+         .logo-container {
+         text-align: center; /* or use float:left or float:right to position the logo */
+         }
+
+         .logo-container img {
+         height: 50px; /* adjust height to your needs */
+         }
       </style>
    </head>
    <body>
@@ -591,12 +599,43 @@
                   <td ></td>
                   <td ></td>
                </tr >
+
+               <tr height="20px" colspan="4">
+               <hr style="width:70%;text-align:left;">
+               <h4>This is computer generated</h4>
+               
+            </tr>
+            <tr height="20px" colspan="2">
+               {{!-- <img src="https://www.rvsmedia.co.uk/wp-content/uploads/2020/01/rvs_logonew.png" style="height:8%;width:6%"> --}}
+            </tr>
             </tbody>
          </table >
-               <img src="https://www.rvsmedia.co.uk/wp-content/uploads/2020/01/rvs_logonew.png"/>
+               {{!-- <img src="https://www.rvsmedia.co.uk/wp-content/uploads/2020/01/rvs_logonew.png"/> --}}
 
 
       </div >
       </div>
+
+
+
+
+      <table class="empDetailFirst">
+            
+            <tr height="50px" colspan="4">
+                <hr style="border: none;border-bottom: 2px solid black;height:30%;">
+                <div class="logo-container">
+                    <h4>This is computer generated</h4>
+                    <img src="https://www.rvsmedia.co.uk/wp-content/uploads/2020/01/rvs_logonew.png" style="height:10%;width:8%">
+                </div>
+            </tr>
+
+            <!-- <div class="logo-container" style="float:left;align-items: center;">
+                <hr style="border: none;border-bottom: 2px solid black;width:90%">
+                <img src="https://www.rvsmedia.co.uk/wp-content/uploads/2020/01/rvs_logonew.png" style="height:8%;width:10%">
+            </div> -->
+            
+
+         </table >
+
    </body>
    </html>
