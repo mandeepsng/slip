@@ -15,6 +15,13 @@
          border-collapse: collapse;
          table-layout: fixed;
          }
+         .empDetailFirst {
+         width: 100%;
+         text-align: left;
+         {{!-- border: 2px solid black; --}}
+         border-collapse: collapse;
+         table-layout: fixed;
+         }
          .head {
          margin: 10px;
          margin-bottom: 50px;
@@ -41,7 +48,7 @@
          height: 40px;
          }
          .myAlign {
-         text-align: center;
+         {{!-- text-align: center; --}}
          border-right: 1px solid black;
          }
          .myTotalBackground {
@@ -71,288 +78,369 @@
          th, td {
          padding-left: 6px;
          }
+
+         .uperleft {
+         text-align: left;
+         font-size: 20px;
+         font-weight: bold;
+         }
+         .uperleft {
+         text-align: left;
+         font-size: 20px;
+         font-weight: bold;
+         }
       </style>
    </head>
    <body>
       <div class="salary-slip" >
-         <table class="empDetail">
-            <tr height="100px" style='background-color: ##fff'>
-               {{!-- <td colspan='4'>
-               </td>
-               <td colspan='4' class="companyName"> Co-Operative Bank Ltd.</td> --}}
-               <h4 class="myAlign">RVS Media</h4>
+         <table class="empDetailFirst">
+            <tr height="50px" style='background-color: #fff'>
+              
+               <h4 style="text-align: center;">RVS Media</h4>
             </tr>
             <tr>
-               <th>
-                  Name
+               <td colspan='3'></td>
+               <th colspan='1'>
+                  Name 
                </th>
-               <td>
+               <td colspan='1'>
                   Example
                </td>
-               <td></td>
-               <th>
+               <th colspan='1'>
                   Bank Code
                </th>
-               <td>
+               <td colspan='1'>
                   ABC123
                </td>
-               <td></td>
+               <td colspan='3'></td>
                
             </tr>
             <tr>
+               <td  colspan='3'></td>
                <th>
                   Employee Code
                </th>
                <td>
                   XXXXXXXXXXX
                </td>
-               <td></td>
                <th>
                   Bank Name
                </th>
                <td>
                   XXXXXXXXXXX
                </td>
-               <td></td>
+               <td  colspan='3'></td>
                
             </tr>
             <tr>
+               <td  colspan='3'></td>
                <th>
                   Cost Centre
                </th>
                <td>
                   XXXXXXXXXXX
                </td>
-               <td></td>
                <th>
                   Bank Branch
                </th>
                <td>
                   XXXXXXXXXX
                </td>
-               <td></td>
+               <td  colspan='3'></td>
+               
+            </tr>
+          
+           
+           
+          
+            
+           
+            
+            
+           
+  
+    
+            <tbody class="border-center">
+               
+    
+            </tbody>
+         </table >
+      </div >
+
+
+      <div class="salary-slip" >
+         <table class="empDetail">
+            <tr height="100px" style='background-color: #fff'>
+               {{!-- <td colspan='4'>
+               </td>
+               <td colspan='4' class="companyName"> Co-Operative Bank Ltd.</td> --}}
+               <h4 style="text-align: center;">RVS Media</h4>
+            </tr>
+            <tr>
+               <td colspan='3'></td>
+               <th colspan='1'>
+                  Name 
+               </th>
+               <td colspan='1'>
+                  Example
+               </td>
+               <th colspan='1'>
+                  Bank Code
+               </th>
+               <td colspan='1'>
+                  ABC123
+               </td>
+               <td colspan='3'></td>
                
             </tr>
             <tr>
+               <td  colspan='3'></td>
+               <th>
+                  Employee Code
+               </th>
+               <td>
+                  XXXXXXXXXXX
+               </td>
+               <th>
+                  Bank Name
+               </th>
+               <td>
+                  XXXXXXXXXXX
+               </td>
+               <td  colspan='3'></td>
+               
+            </tr>
+            <tr>
+               <td  colspan='3'></td>
+               <th>
+                  Cost Centre
+               </th>
+               <td>
+                  XXXXXXXXXXX
+               </td>
+               <th>
+                  Bank Branch
+               </th>
+               <td>
+                  XXXXXXXXXX
+               </td>
+               <td  colspan='3'></td>
+               
+            </tr>
+            <tr>
+               <td colspan='3'></td>
                <th>
                   CC Description:
                </th>
                <td>
                   XXXXXXXXXXX
                </td>
-               <td></td>
                <th>
                   Bank A/C no.
                </th>
                <td>
                   XXXXXXXXXX
                </td>
-               <td></td>
+               <td colspan='3'></td>
                
             </tr>
             <tr>
+               <td colspan='3'></td>
                <th>
                   Grade:
                </th>
                <td>
                   18
                </td>
-               <td></td>
                <th>
                   Employee Group
                </th>
                <td>
                   Sales Manager
                </td>
-               <td></td>
+               <td colspan='3'></td>
                
             </tr>
             <tr class="myBackground">
-               <th colspan="2">
-                  Payments
-               </th>
-               <th class="table-border-right">
-                  Particular
+               <td colspan='2'></td>
+
+               <th colspan="2" class="table-border-right">
+                  Earnings and Reimbursements
                </th>
                <th class="table-border-right">
                   Amount (Rs.)
                </th>
-               <th colspan="2">
+               {{!-- <th class="table-border-right">
+                  Particular
+               </th> --}}
+               <th colspan="2" class="table-border-right">
                   Deductions
                </th>
-               <th class="table-border-right">
+               {{!-- <th class="table-border-right">
                   Particular
-               </th>
-               <th >
+               </th> --}}
+               <th>
                   Amount (Rs.)
                </th>
             </tr>
             <tr>
-               <th colspan="2">
+               <td colspan='2'></td>
+
+               <th colspan="2" class="myAlign">
                   Basic Salary
                </th>
-               <td></td>
+               {{!-- <td></td> --}}
                <td class="myAlign">
                   4935.00
                </td>
-               <th colspan="2" >
+               <th colspan="2" class="myAlign">
                   Provident Fund
                </th >
-               <td></td>
-               <td class="myAlign">
+               {{!-- <td></td> --}}
+               <td class="">
                   00.00
                </td>
             </tr >
             <tr>
-               <th colspan="2">
+               <td colspan='2'></td>
+
+               <th colspan="2" class="myAlign">
                   Fixed Dearness Allowance
                </th>
-               <td></td>
+               {{!-- <td></td> --}}
                <td class="myAlign">
                   00.00
                </td>
-               <th colspan="2" >
+               <th colspan="2" class="myAlign">
                   LIC
                </th >
-               <td></td>
-               <td class="myAlign">
+               <td class="">
                   00.00
                </td>
+               {{!-- <td></td> --}}
             </tr >
             <tr>
-               <th colspan="2">
+               <td colspan='2'></td>
+
+               <th colspan="2"  class="myAlign">
                   Variable Dearness Allowance
                </th>
-               <td></td>
+               {{!-- <td></td> --}}
                <td class="myAlign">
                   00.00
                </td>
-               <th colspan="2" >
+               <th colspan="2" class="myAlign">
                   Loan
                </th >
-               <td></td>
-               <td class="myAlign">
+               {{!-- <td></td> --}}
+               <td>
                   00.00
                </td>
             </tr >
             <tr>
-               <th colspan="2">
+               <td colspan='2'></td>
+
+               <th colspan="2"  class="myAlign">
                   House Rent Allowance
                </th>
-               <td></td>
+               {{!-- <td></td> --}}
                <td class="myAlign">
                   00.00
                </td>
-               <th colspan="2" >
+               <th colspan="2" class="myAlign">
                   Professional Tax
                </th >
-               <td></td>
-               <td class="myAlign">
+               {{!-- <td></td> --}}
+               <td class="">
                   00.00
                </td>
             </tr >
             <tr>
-               <th colspan="2">
+               <td colspan='2'></td>
+
+               <th colspan="2"  class="myAlign">
                   Graduation Allowance
                </th>
-               <td></td>
+               {{!-- <td></td> --}}
                <td class="myAlign">
                   00.00
                </td>
-               <th colspan="2" >
+               <th colspan="2" class="myAlign">
                   Security Deposite(SD)
                </th >
-               <td></td>
-               <td class="myAlign">
+               {{!-- <td></td> --}}
+               <td class="">
                   00.00
                </td>
             </tr >
             <tr>
-               <th colspan="2">
+               <td colspan='2'></td>
+
+               <th colspan="2"  class="myAlign">
                   Conveyance Allowance
                </th>
-               <td></td>
+               {{!-- <td></td> --}}
                <td class="myAlign">
                   00.00
                </td>
-               <th colspan="2" >
+               <th colspan="2" class="myAlign">
                   Staff Benefit(SB)
                </th >
-               <td></td>
-               <td class="myAlign">
+               {{!-- <td></td> --}}
+               <td class="">
                   00.00
                </td>
             </tr >
             <tr>
-               <th colspan="2">
+               <td colspan='2'></td>
+
+               <th colspan="2"  class="myAlign">
                   Post Allowance
                </th>
-               <td></td>
+               {{!-- <td></td> --}}
                <td class="myAlign">
                   00.00
                </td>
-               <th colspan="2" >
+               <th colspan="2" class="myAlign">
                   Labour Welfare Fund
                </th >
-               <td></td>
-               <td class="myAlign">
+               {{!-- <td></td> --}}
+               <td class="">
                   00.00
                </td>
             </tr >
             <tr>
-               <th colspan="2">
+               <td colspan='2'></td>
+
+               <th colspan="2"  class="myAlign">
                   Special Allowance
                </th>
-               <td></td>
+               {{!-- <td></td> --}}
                <td class="myAlign">
                   00.00
                </td>
-               <th colspan="2" >
+               <th colspan="2" class="myAlign">
                   NSC
                </th >
-               <td></td>
-               <td class="myAlign">
+               {{!-- <td></td> --}}
+               <td class="">
                   00.00
                </td>
             </tr >
-            <tr>
-               <td colspan="4" class="table-border-right"></td>
-               <th colspan="2" >
-                  Union Thanco Officer(UTO)
-               </th >
-               <td></td>
-               <td class="myAlign">
-                  00.00
-               </td>
-            </tr >
-            <tr>
-               <td colspan="4" class="table-border-right"></td>
-               <th colspan="2" >
-                  Advance
-               </th >
-               <td></td>
-               <td class="myAlign">
-                  00.00
-               </td>
-            </tr >
-            <tr>
-               <td colspan="4" class="table-border-right"></td>
-               <th colspan="2" >
-                  Income Tax
-               </th >
-               <td></td>
-               <td class="myAlign">
-                  00.00
-               </td>
-            </tr >
+
+            
+            
+           
+
+
             <tr class="myBackground">
-               <th colspan="3">
+               <th colspan="2"  class="myAlign">
                   Total Payments
                </th>
                <td class="myAlign">
                   10000
                </td>
-               <th colspan="3" >
+               <th colspan="2" class="myAlign">
                   Total Deductions
                </th >
                <td class="myAlign">
@@ -505,6 +593,9 @@
                </tr >
             </tbody>
          </table >
+               <img src="https://www.rvsmedia.co.uk/wp-content/uploads/2020/01/rvs_logonew.png"/>
+
+
       </div >
       </div>
    </body>

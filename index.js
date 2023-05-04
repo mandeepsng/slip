@@ -201,8 +201,10 @@ app.post('/create-html', function(req, res) {
   // Render the Handlebars template with the data
   const dd = req.body.data;
   const id = req.body.id;
+  const headers = req.body.headers;
   const data =  {
     data: dd,
+    headers: headers,
   };
 
 

@@ -1,163 +1,459 @@
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>RVS Management</title>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>RVS Management</title>
+      <style>
+         .salary-slip{
+         margin: 15px;
+         }
+         .empDetail {
+         width: 100%;
+         text-align: left;
+         border: 2px solid black;
+         border-collapse: collapse;
+         table-layout: fixed;
+         }
+         .empDetailFirst {
+         width: 100%;
+         text-align: left;
+         border-collapse: collapse;
+         table-layout: fixed;
+         }
+         .head {
+         margin: 10px;
+         margin-bottom: 50px;
+         width: 100%;
+         }
+         .companyName {
+         text-align: right;
+         font-size: 25px;
+         font-weight: bold;
+         }
+         .salaryMonth {
+         text-align: center;
+         }
+         .table-border-bottom {
+         border-bottom: 1px solid;
+         }
+         .table-border-right {
+         border-right: 1px solid;
+         }
+         .myBackground {
+         padding-top: 10px;
+         text-align: left;
+         border: 1px solid black;
+         height: 40px;
+         }
+         .myAlign {
+         border-right: 1px solid black;
+         }
+         .myTotalBackground {
+         padding-top: 10px;
+         text-align: left;
+         background-color: #EBF1DE;
+         border-spacing: 0px;
+         }
+         .align-4 {
+         width: 25%;
+         float: left;
+         }
+         .tail {
+         margin-top: 35px;
+         }
+         .align-2 {
+         margin-top: 25px;
+         width: 50%;
+         float: left;
+         }
+         .border-center {
+         text-align: center;
+         }
+         .border-center th, .border-center td {
+         border: 1px solid black;
+         }
+         th, td {
+         padding-left: 6px;
+         }
 
-  <!--Boostrap 4.0.0 CSS-->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
-  
-  
-  <!--Font Awesome Icons-->
-  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-</head>
-
-<body>
-
-  <div class="container mt-2 mb-2">
-    <div class="row">
-            <div class="col-md-12">
-                <h6 class="fw-bold text-center">Payslip</h6> 
-                <hr class="border-5">
-                <div class="text-center lh-1 mb-2">
-                    <span class="fw-normal">Pay slip for the month of jan, 2023</span>
-                </div>
-            
-                <div class="row">
-                        <div class="col-md-6">
-                            <div> <span class="fw-bolder">Employee Name:</span> <small class="ms-3"><%= data._0 %></small> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div> <span class="fw-bolder">Designation:</span> <small class="ms-3"><%= data._1 %></small> </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div> <span class="fw-bolder">Branch: </span> <small class="ms-3"><%= data._2 %></small> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div> <span class="fw-bolder">Month: </span> <small class="ms-3"><%= data._3 %></small> </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div> <span class="fw-bolder">Basic Salary:</span> <small class="ms-3"><%= data._4 %></small> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div> <span class="fw-bolder">PAN</span> <small class="ms-3"><%= data._5 %></small> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div> <span class="fw-bolder">Working Days:</span> <small class="ms-3"><%= data._6 %></small> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div> <span class="fw-bolder">Pay Days:</span> <small class="ms-3"><%= data._7 %></small> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div> <span class="fw-bolder">Payment Mode:</span> <small class="ms-3"><%= data._8 %></small> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div> <span class="fw-bolder">Bank A/C No:</span> <small class="ms-3"><%= data._9 %></small> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div> <span class="fw-bolder">UAN:</span> <small class="ms-3"><%= data._10 %></small> </div>
-                        </div>
-
-                </div>
-                    
+         .uperleft {
+         text-align: left;
+         font-size: 20px;
+         font-weight: bold;
+         }
+         .uperleft {
+         text-align: left;
+         font-size: 20px;
+         font-weight: bold;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="salary-slip" >
+         <table class="empDetailFirst">
+            <tr height="20px" style='background-color: #fff'>
+              
+               <h4 style="text-align: center;">RVS Media</h4>
+               <hr>
+               <h4 style="text-align: center;">Pay slip for the month of jan, 2023</h4>
+            </tr>
+            <tr>
+               <th colspan='1'>
+                  Employee Name: 
+               </th>
+               <td colspan='1'>
+                  <%= data._0 %>
+               </td>
+               <th colspan='1'>
+                  Designation:
+               </th>
+               <td colspan='1'>
+                  <%= data._1 %>
+               </td>
+               
+            </tr>
+            <tr>
+               <th>
+                  Branch:
+               </th>
+               <td>
+                  <%= data._2 %>
+               </td>
+               <th>
+                  Month:
+               </th>
+               <td>
+                  <%= data._3 %>
+               </td>
+               
+            </tr>
+            <tr>
+               <th>
+                  Basic Salary:
+               </th>
+               <td>
+                  <%= data._4 %>
+               </td>
+               <th>
+                  PAN:
+               </th>
+               <td>
+                  <%= data._5 %>
+               </td>
+               
+            </tr>
+            <tr>
+               <th>
+                  Working Days:
+               </th>
+               <td>
+                  <%= data._6 %>
+               </td>
+               <th>
+                  Pay Days:
+               </th>
+               <td>
+                  <%= data._7 %>
+               </td>
+               
+            </tr>
+            <tr>
+               <th>
+                  Payment Mode:
+               </th>
+               <td>
+                  <%= data._8 %>
+               </td>
+               <th>
+                  Bank A/C No:
+               </th>
+               <td>
+                  <%= data._9 %>
+               </td>
+               
+            </tr>
+            <tr>
+               <th>
+                  UAN:
+               </th>
+               <td>
+                  <%= data._10 %>
+               </td>
+               <th>
                   
-                   
-                <table class="mt-4 table table-bordered">
-                    <thead class="">
-                        <tr>
-                            <th scope="col">Earnings and Reimbutsements</th>
-                            <th scope="col">Amount (Rs)</th>
-                            <th scope="col">Deductions</th>
-                            <th scope="col">Amount (Rs)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Basic Salary</td>
-                            <td><%= data._11 %></td>
-                            <td>Tax Deduction at Source (TDS)</td>
-                            <td><%= data._12 %></td>
-                        </tr>
-                        <tr>
-                            <td>House Rent Allowance</td>
-                            <td><%= data._13 %></td>
-                            <td>Employee Provident Fund (EPF)</td>
-                            <td><%= data._14 %></td>
-                        </tr>
-                        <tr>
-                            <td>City Allowance</td>
-                            <td><%= data._15 %> </td>
-                            <td>Employee State Insurance (ESI)</td>
-                            <td><%= data._16 %></td>
-                        </tr>
-                        <tr>
-                            <td>Mobile and Internet Allowance</td>
-                            <td><%= data._17 %> </td>
-                            <td>Professional Tax</td>
-                            <td><%= data._18s %></td>
-                        </tr>
-                        <tr>
-                            <td>Leave Travel Allowance</td>
-                            <td><%= data._19 %> </td>
-                            <td>Other Deductions</td>
-                            <td><%= data._20 %></td>
-                        </tr>
-                        <tr>
-                            <td>Special Allowance</td>
-                            <td><%= data._21 %> </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Others</td>
-                            <td><%= data._22 %></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Tenure Bonus</td>
-                            <td><%= data._23 %></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Statutory Bonus</td>
-                            <td><%= data._24 %></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Total Earnings</td>
-                            <td><%= data._25 %></td>
-                            <td> Total Deductions</td>
-                            <td> <%= data._26 %></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"></td>
-                            <td>Net Pay</td>
-                            <td>Rs.<%= data._27 %></td>
-                        </tr>
-                       
-                    </tbody>
-                </table>
-            </div>
-            <div class="row">
-                <div class="col-md-8"> <br> <span class="fw-bold">[Salary drawn in this finacial year: Rs.<%= data._28 %>]</span> </div>
-                <!-- <div class="border col-md-8">
-                    <div class="d-flex flex-column"> <span>In Words</span> <span>Twenty Five thousand nine hundred seventy only</span> </div>
-                </div> -->
-            </div>
-            <!-- <div class="d-flex justify-content-end">
-                <div class="d-flex flex-column mt-2"> <span class="fw-bolder">For Kalyan Jewellers</span> <span class="mt-4">Authorised Signatory</span> </div>
-            </div> -->
-        </div>
-    </div>
-</div>
+               </th>
+               <td>
+                
+               </td>
+               
+            </tr>
+          
+         </table >
+      </div >
 
-</body>
-</html
+
+      <div class="salary-slip" >
+         <table class="empDetail">
+            
+            <tr class="myBackground">
+
+               <th colspan="3" class="table-border-right">
+                  Earnings and Reimbursements
+               </th>
+               <th colspan="2" class="table-border-right">
+                  Amount (Rs.)
+               </th>
+              
+               <th colspan="3" class="table-border-right">
+                  Deductions
+               </th>
+               
+               <th colspan="2">
+                  Amount (Rs.)
+               </th>
+            </tr>
+            <tr>
+
+               <th colspan="3" class="myAlign">
+                  Basic Salary
+               </th>
+               <td class="myAlign" colspan="2">
+                  <%= data._11 %>
+               </td>
+               <th colspan="3" class="myAlign">
+                  Tax Deduction at Source (TDS)
+               </th >
+               <td class="" colspan="2">
+                  <%= data._12 %>
+               </td>
+            </tr >
+            <tr>
+
+               <th colspan="3" class="myAlign">
+                  House Rent Allowance
+               </th>
+               <td class="myAlign" colspan="2">
+                  <%= data._13 %>
+               </td>
+               <th colspan="3" class="myAlign">
+                  Employee Provident Fund (EPF)
+               </th >
+               <td class="" colspan="2">
+                  <%= data._14 %>
+               </td>
+            </tr >
+            <tr>
+
+               <th colspan="3"  class="myAlign">
+                  City Allowance
+               </th>
+               <td class="myAlign" colspan="2">
+                  <%= data._15 %>
+               </td>
+               <th colspan="3" class="myAlign">
+                  Employee State Insurance (ESI)
+               </th >
+               <td colspan="2">
+                  <%= data._16 %>
+               </td>
+            </tr >
+            <tr>
+
+               <th colspan="3"  class="myAlign">
+                  Mobile and Internet Allowance
+               </th>
+               <td class="myAlign" colspan="2">
+                  <%= data._17 %>
+               </td>
+               <th colspan="3" class="myAlign">
+                  Professional Tax
+               </th >
+               <td class="" colspan="2">
+                  <%= data._18 %>
+               </td>
+            </tr >
+            <tr>
+
+               <th colspan="3"  class="myAlign">
+                  Leave Travel Allowance
+               </th>
+               <td class="myAlign" colspan="2">
+                  <%= data._19 %>
+               </td>
+               <th colspan="3" class="myAlign">
+                  Other Deductions
+               </th >
+               <td class="" colspan="2">
+                  <%= data._20 %>
+               </td>
+            </tr >
+            <tr>
+
+               <th colspan="3"  class="myAlign">
+                  Special Allowance
+               </th>
+               <td class="myAlign" colspan="2">
+                  <%= data._21 %>
+               </td>
+               <th colspan="3" class="myAlign">
+                  
+               </th >
+               <td class="" colspan="2">
+                  
+               </td>
+            </tr >
+            <tr>
+
+               <th colspan="3"  class="myAlign">
+                  Others
+               </th>
+               <td class="myAlign" colspan="2">
+                  <%= data._22 %>
+               </td>
+               <th colspan="3" class="myAlign">
+                
+               </th >
+               <td class="" colspan="2">
+                 
+               </td>
+            </tr >
+            <tr>
+
+               <th colspan="3"  class="myAlign">
+                  Tenure Bonus
+               </th>
+               <td class="myAlign" colspan="2">
+                  <%= data._23 %>
+               </td>
+               <th colspan="3" class="myAlign">
+                  
+               </th >
+               <td class="" colspan="2">
+                  
+               </td>
+            </tr >
+            <tr>
+
+               <th colspan="3"  class="myAlign">
+                  Statutory Bonus
+               </th>
+               <td class="myAlign" colspan="2">
+                  <%= data._24 %>
+               </td>
+               <th colspan="3" class="myAlign">
+                  
+               </th >
+               <td class="" colspan="2">
+                  
+               </td>
+            </tr >
+
+            
+            
+           
+
+
+            <tr class="myBackground">
+               <th colspan="3"  class="myAlign">
+                  Total Earnings
+               </th>
+               <td class="myAlign" colspan="2">
+                  <%= data._25 %>
+               </td>
+               <th colspan="3" class="myAlign">
+                  Total Deductions
+               </th >
+               <td class="myAlign" colspan="2">
+                  <%= data._26 %>
+               </td>
+            </tr >
+
+            <tr class="myBackground">
+               <th colspan="5"  class="myAlign">
+                  
+               </th>
+               
+               <th colspan="3" class="myAlign">
+                  Net Pay
+               </th >
+               <td class="myAlign" colspan="2">
+                  Rs. <%= data._27 %>
+               </td>
+            </tr >
+
+
+         </table >
+      </div >
+
+      <div class="salary-slip" >
+         <table class="empDetailFirst">
+            <tr style='background-color: #fff'>
+              
+               <h4 style="text-align: left;">[Salary drawn in this financial year: Rs.<%= data._28 %> ]</h4>
+            </tr>
+          
+         </table >
+      </div >
+      
+      <div class="salary-slip" >
+
+         <table class="empDetail">
+            <tr style='background-color: #fff'>
+                 
+               <h4 style="text-align: center;">Tax Deduction Details(Rs.)</h4>
+            </tr>
+            
+            <tr class="myBackground">
+               <th colspan="2" class="myAlign">Month </th>
+               <td class="myAlign"><%= headers._29 %></td>
+               <td class="myAlign"><%= headers._30 %></td>
+               <td class="myAlign"><%= headers._31 %></td>
+               <td class="myAlign"><%= headers._32 %></td>
+               <td class="myAlign"><%= headers._33 %></td>
+               <td class="myAlign"><%= headers._34 %></td>
+               <td class="myAlign"><%= headers._35 %></td>
+               <td class="myAlign"><%= headers._36 %></td>
+               <td class="myAlign"><%= headers._37 %></td>
+               <td class="myAlign"><%= headers._38 %></td>
+               <td class="myAlign"><%= headers._39 %></td>
+               <td class="myAlign"><%= headers._40 %></td>
+            </tr>
+            <tr>
+               <th colspan="2" class="myAlign">Deduction </th>
+               <td class="myAlign"><%= data._29 %></td>
+               <td class="myAlign"><%= data._30 %></td>
+               <td class="myAlign"><%= data._31 %></td>
+               <td class="myAlign"><%= data._32 %></td>
+               <td class="myAlign"><%= data._33 %></td>
+               <td class="myAlign"><%= data._34 %></td>
+               <td class="myAlign"><%= data._35 %></td>
+               <td class="myAlign"><%= data._36 %></td>
+               <td class="myAlign"><%= data._37 %></td>
+               <td class="myAlign"><%= data._38 %></td>
+               <td class="myAlign"><%= data._39 %></td>
+               <td class="myAlign"><%= data._40 %></td>
+            </tr>
+
+         </table >
+
+
+         <table class="empDetailFirst">
+            
+            <tr height="20px" colspan="4">
+               <hr>
+               <h4>This is computer generated</h4>
+            <img src="https://www.rvsmedia.co.uk/wp-content/uploads/2020/01/rvs_logonew.png" style="height:8%;width:6%">
+
+            </tr>
+
+            
+
+         </table >
+      </div >
+
+
+      
+      
+   </body>
+   </html>
