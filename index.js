@@ -76,13 +76,9 @@ app.post('/', upload.single('csv'), (req, res) => {
   const file = req.file;
   if (!file) {
     return res.render('index', { error: 'No CSV file was uploaded!' });
-    // return res.status(400).json({ error: 'No CSV file was uploaded!' });
-
   }
   if (!['text/csv', 'application/csv'].includes(file.mimetype)) {
-    // return res.status(400).json({ error: 'Only CSV files are allowed!' });
     return res.render('index', { error: 'Only CSV files are allowed!' });
-
   }
 
   const results = [];
