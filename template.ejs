@@ -98,16 +98,22 @@
    </head>
    <body>
 
-      <div class="logo-container">
+      <!-- <div class="logo-container">
          <img src="https://www.rvsmedia.co.uk/wp-content/uploads/2020/01/rvs_logonew.png" style="height:10%;width:8%">
-      </div>
+      </div> -->
       <!-- <hr style="border: none;border-bottom: 2px solid black;"> -->
 
       <div class="salary-slip" >
          <table class="empDetailFirst">
+
+
+            <div class="logo-container">
+               <img src="<%= image_url %>" style="height:10%;width:8%">
+            </div>
+
             <tr height="20px" style='background-color: #fff'>
               
-               <h4 style="text-align: center;">RVS Media</h4>
+               <h4 style="text-align: center;">RVS Media </h4>
                <hr>
                <h4 style="text-align: center;">Pay slip for the month of jan, 2023</h4>
             </tr>
@@ -123,6 +129,21 @@
                </th>
                <td colspan='1'>
                   <%= data._1 %>
+               </td>
+               
+            </tr>
+            <tr>
+               <th>
+                  Employee Code:
+               </th>
+               <td>
+                  <%= data._2 %>
+               </td>
+               <th>
+                  Father Name:
+               </th>
+               <td>
+                  <%= data._3 %>
                </td>
                
             </tr>
@@ -194,10 +215,10 @@
                   <%= data._10 %>
                </td>
                <th>
-                  
+                  DOB:
                </th>
                <td>
-                
+                  <%= data._10 %>
                </td>
                
             </tr>
@@ -411,7 +432,7 @@
       
       <div class="salary-slip" >
 
-         <table class="empDetail">
+         <!-- <table class="empDetail">
             <tr style='background-color: #fff'>
                  
                <h4 style="text-align: center;">Tax Deduction Details(Rs.)</h4>
@@ -446,6 +467,22 @@
                <td class="myAlign"><%= data._38 %></td>
                <td class="myAlign"><%= data._39 %></td>
                <td class="myAlign"><%= data._40 %></td>
+            </tr>
+
+         </table > -->
+
+
+         <table class="empDetail" height="20px">
+            
+            <tr class="myBackground">
+               <td colspan="3" class="myAlign border-center">Opening balance of leaves </td>
+               <td colspan="3" class="myAlign border-center">Leaves taken during month</td>
+               <td colspan="3" class="myAlign border-center">Closing balance leaves</td>
+            </tr>
+            <tr>
+               <td colspan="3" class="myAlign border-center">6 </td>
+               <td colspan="3" class="myAlign border-center">3</td>
+               <td colspan="3" class="myAlign border-center">4</td>
             </tr>
 
          </table >
